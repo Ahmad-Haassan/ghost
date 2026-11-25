@@ -1,0 +1,17 @@
+{
+  "name": "PocketDesk Mobile Controller",
+  "short_name": "PocketDesk",
+  "description": "Zero-Budget QR-Paired Remote PC Controller",
+  "start_url": "/mobile/index.html",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#0ea5e9",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/mobile/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,42 +1,26 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
+# Dependencies
+node_modules/
 
-# Virtual environments
-venv/
-env/
-ENV/
-
-# Local credentials
+# Secrets & Local runtime configs (auto-generated on first launch)
 config.json
-.env
 
-# Large model downloads (keep directory structure)
-model/
-model/*.zip
-model/*.tar.gz
-
-# Local application data and logs
-data/
-
-sample_video.mp4
-scratch_frames/
-frame_*.png
-recent_recording.mp4
-input_box_crop.png
-ask_tpl.png
-prompt_box_clean.png
-
-# Auto-generated SSL certificates and private keys
-*.pem
-key.pem
-cert.pem
-
-# Binary executables and tunnel logs
+# Tunneling binary (auto-downloaded on launch if missing)
 cloudflared.exe
+
+# Logs & Temp files
 *.log
-cf.log
+test_run.log
+npm-debug.log*
+yarn-debug.log*
 
-scratch/
+# OS & Editor
+Thumbs.db
+Desktop.ini
+.DS_Store
+.vscode/
+.idea/
 
+# Distribution & Build
+dist/
+build/
+out/

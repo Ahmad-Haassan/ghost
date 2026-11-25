@@ -1,141 +1,102 @@
-<div align="center">
+# GHOST Remote
 
-# 👻 GHOST — Autonomous Neural Desktop OS & Remote Commander
-### *One-Time QR Mobile Pairing, Encrypted Tunnel Control & Deep Windows OS Automation*
-
-[![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org/)
-[![Vosk](https://img.shields.io/badge/Vosk-Offline_Wake_Word-FF6F00?style=for-the-badge)](https://alphacephei.com/vosk/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-Remote_Bridge-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
-[![Web App](https://img.shields.io/badge/Web_HUD-Cyber_Obsidian-00f5d4?style=for-the-badge)](./web/index.html)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](./LICENSE)
-
-<br />
-
-<p align="center">
-  <b>GHOST</b> is a next-generation cybernetic desktop operating system and remote control platform. Equipped with real-time Win32 automation, dual-stage speech recognition, and an encrypted wireless mobile bridge with instant One-Time QR pairing, GHOST enables complete hands-free control of your PC from anywhere in the world over 4G/5G.
-</p>
-
-[**Explore Capabilities**](#-core-capabilities) • [**Architecture**](#-speech--automation-pipeline) • [**Command Glossary**](#-supported-voice-commands) • [**Setup Guide**](#-setup--installation)
-
-<br />
-
-![JARVIS Voice Assistant Cyber HUD](./docs/jarvis_hud_showcase.jpg)
-
-</div>
+An open-source desktop control application that allows users to monitor and interact with their Windows computer from a mobile device using WebRTC screen streaming and real-time input injection.
 
 ---
 
-> 📖 **Comprehensive System Documentation & Technical Handbook**: For an exhaustive, chapter-by-chapter walkthrough of how JARVIS works, deep Win32 OS automation, the mobile wireless bridge, architecture diagrams, and technical interview Q&A, explore the [**`how_jarvis_works/`**](how_jarvis_works/README.md) handbook!
+## Overview
+
+GHOST Remote establishes a direct peer-to-peer or tunneled connection between your desktop and a smartphone. Pairing is handled through a one-time dynamic QR code containing unique session credentials. Once connected, your phone functions as a wireless trackpad, keyboard, and display monitor with ultra-low latency.
 
 ---
 
-## 🌟 Core Capabilities
+## Key Features
 
-### 1. 🛡️ Dual-Stage Speech Engine (100% Private & Offline)
-* **Stage 1 (Vosk Wake-Word)**: Continuously listens for the `"Jarvis"` activation key using an ultra-low CPU offline acoustic model. Zero cloud streaming while idling.
-* **Stage 2 (Faster-Whisper STT)**: Once triggered, speech is transcribed locally via quantized Whisper (`large-v3` or `base.en`), providing high-accuracy transcription even in noisy environments without cloud subscription costs.
-
-### 2. ⚡ Deep Windows OS Automation
-* **Smart App Indexer**: Scans and indexes all installed Windows applications (VS Code, Chrome, Spotify, Figma) for instant zero-latency voice launching.
-* **"Work Mode" Routine**: A single phrase (*"Start work mode"*) simultaneously opens your development environment: VS Code, terminal windows, Chrome documentation tabs, and background audio.
-* **Native WhatsApp Desktop Routing**: Prepares and sends messages through native Windows messaging apps.
-
-### 3. 🌐 Media & Web Execution
-* **Instant YouTube Automation**: Commands like *"Play lo-fi music on YouTube"* automatically query the YouTube search engine and launch playback instantly.
-* **System Telemetry & Diagnostics**: Query CPU load, memory utilization, network latency, and weather reports through voice.
-
-### 4. 🌌 Cyber-Ring Glassmorphic HUD
-* **Dynamic Waveform Visualization**: Visual ring pulses in sync with real-time mic amplitude, giving clear visual cues for *Listening*, *Thinking*, *Speaking*, and *Standby*.
-* **Minimal Resource Footprint**: Built with hardware-accelerated PyQt6 shaders that consume less than 3% background CPU.
+- **Instant QR Pairing**: Scan a generated QR code from your mobile browser without installing a native phone app.
+- **Real-Time Display Streaming**: Captures the Windows desktop and streams video via WebRTC at high frame rates.
+- **Hardware-Level Input Injection**: Uses a lightweight C# helper to simulate smooth mouse movements, clicks, and keystrokes directly in Windows.
+- **Cloudflare Quick Tunnel Integration**: Enables access across different networks without manual router port-forwarding.
+- **Minimal Footprint**: Built with Electron and vanilla web technologies for fast loading and low CPU overhead.
+- **Device Management**: View and revoke connected mobile clients from the desktop control panel.
 
 ---
 
-## 🏗️ Speech & Automation Pipeline
+## System Architecture
 
 ```text
-[ Microphone Stream ]
-         │
-         ▼
-[ Vosk Lightweight Offline Engine ] ──► (Waiting for "Jarvis"...)
-         │ (Wake Word Detected!)
-         ▼
-[ Cyber-Ring HUD Activates ("Listening...") ]
-         │
-         ▼
-[ Faster-Whisper Local Transcription ]
-         │
-         ▼
-[ NLP Intent Matcher & Rule Engine ]
-         │
-    ┌────┴───────────────────────────┐
-    ▼                                ▼
-[ OS & Desktop Automation ]   [ Web & Media Automation ]
-(Launch VS Code, System Info) (YouTube Streams, Searches)
-         │                                │
-         └──────────────┬─────────────────┘
-                        ▼
-            [ Natural Voice Response & UI Log ]
++-----------------------+                    +-----------------------+
+|  Mobile Web Client    |                    |  Desktop Host (GHOST) |
+|  - Virtual Trackpad   | <--- WebRTC Data - |  - Electron Dashboard |
+|  - Keyboard Input     | ---- Input Events->|  - WebSocket Server   |
+|  - Low-Latency Video  |                    |  - C# Input Injector  |
++-----------------------+                    +-----------------------+
+            ^                                            ^
+            |                                            |
+            +------------- Secure Tunnel / LAN ----------+
 ```
 
 ---
 
-## 🗣️ Supported Voice Commands
+## Project Structure
 
-| Category | Example Voice Command | Action Executed |
-| :--- | :--- | :--- |
-| **Workspace** | *"Start work mode"* | Opens VS Code, Terminal, Spotify, and Chrome |
-| **Media** | *"Play synthwave on YouTube"* | Finds & plays top-ranked track directly |
-| **System** | *"System diagnostics"* | Reads current CPU %, RAM usage, and battery |
-| **Communication** | *"Open WhatsApp and message Alex"* | Dispatches chat window with pre-filled prompt |
-| **Standby** | *"Go to sleep"* | Silences listening and minimizes to system tray |
-
----
-
-## 🛠️ Tech Stack & Dependencies
-
-* **Language**: Python 3.10+
-* **Speech-to-Text**: Faster-Whisper, Vosk Speech Recognition
-* **Text-to-Speech**: pyttsx3 / Edge-TTS
-* **Desktop GUI**: PyQt6 (QML & Shader support)
-* **OS Interactivity**: `pyautogui`, `psutil`, `subprocess`
-
----
-
-## 🚀 Setup & Installation
-
-### 1. Clone the Repository
-```bash
-git clone https://github.com/Ahmad-Haassan/JARVIS-Voice-Agent.git
-cd JARVIS-Voice-Agent
+```text
+ghost/
+├── assets/                  # Icons and visual branding assets
+├── desktop/                 # Electron dashboard HTML, CSS, and renderer scripts
+│   ├── index.html           # Main host user interface
+│   ├── renderer.js          # Desktop UI logic and device pairing state
+│   └── style.css            # Dark-themed control panel styling
+├── public/                  # Mobile progressive web app
+│   └── mobile/              # Client web app served to connected phones
+├── inputManager.js          # Bridges WebSocket input commands to the injector
+├── input_injector.cs        # Win32 SendInput source code for hardware injection
+├── input_injector.exe       # Compiled input simulation executable
+├── tunnelManager.js         # Cloudflare tunnel process manager
+├── cryptoManager.js         # Session token generation and encryption helpers
+├── server.js                # Express HTTP and WebSocket communication server
+├── main.js                  # Electron application entry point
+├── package.json             # Node.js dependencies and scripts
+└── start-pocketdesk.bat     # Windows launcher script
 ```
 
-### 2. Create Virtual Environment & Install Dependencies
-```bash
-python -m venv venv
-venv\Scripts\activate
+---
 
-pip install -r requirements.txt
-```
+## Getting Started
 
-### 3. Download Offline Acoustic Model
-Download the small English model from [Vosk Models](https://alphacephei.com/vosk/models) (e.g., `vosk-model-small-en-us-0.15`) and place it inside `./model/`.
+### Prerequisites
 
-### 4. Run JARVIS
-```bash
-python main.py
-```
-Say **"Jarvis"** to wake the assistant, then give any command!
+- Node.js (version 18 or newer)
+- Windows 10 or Windows 11
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Ahmad-Haassan/ghost.git
+   cd ghost
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Launch the application:
+   ```bash
+   npm start
+   ```
+   Or double-click `run.bat`.
+
+### Connecting from Mobile
+
+1. Launch GHOST Remote on your computer.
+2. Ensure both devices are on the same local network, or enable the online tunnel in settings.
+3. Open the camera on your phone and scan the QR code shown on the desktop screen.
+4. Use the on-screen touchpad and keyboard to control your PC remotely.
 
 ---
 
-## 📬 Connect & Author
+## Author
 
-- **Developer**: Ahmad Hassan
-- **GitHub**: [@Ahmad-Haassan](https://github.com/Ahmad-Haassan)
-- **Email**: [ahmad.hassan.dev@gmail.com](mailto:ahmad.hassan.dev@gmail.com)
-
----
-
-## 📄 License
-
-This project is licensed under the [MIT License](./LICENSE).
+**Ahmad Hassan**  
+GitHub: [@Ahmad-Haassan](https://github.com/Ahmad-Haassan)

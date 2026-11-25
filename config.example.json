@@ -1,0 +1,14 @@
+{
+  "deviceId": "GHOST-XXXX-XXXX",
+  "token": "example-token-auto-generated-on-first-run",
+  "encryptionKey": "example-encryption-key-auto-generated",
+  "deviceName": "My Windows PC",
+  "port": 48765,
+  "autoStart": false,
+  "allowControl": true,
+  "requireApproval": true,
+  "pin": "123456",
+  "pairedDevices": [],
+  "createdAt": "2026-11-25T00:00:00.000Z",
+  "requirePin": false
+}

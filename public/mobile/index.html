@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>PocketDesk Controller</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <meta name="theme-color" content="#090d16">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app" class="app-container">
+    
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="pc-badge">
+        <span class="status-dot disconnected" id="statusDot"></span>
+        <span class="pc-name" id="pcNameDisplay">PocketDesk</span>
+        <span id="e2eeBadge" class="e2ee-tag" title="AES-256-GCM End-to-End Encrypted">🔒 E2EE</span>
+      </div>
+      
+      <div class="top-actions">
+        <button id="speedToggleBtn" class="pill-btn" title="Cursor Speed">
+          ⚡ <span id="speedLabel">2.5x</span>
+        </button>
+        <button id="keyboardToggleBtn" class="pill-btn icon-btn" title="Open Keyboard">
+          ⌨️
+        </button>
+        <button id="shortcutsToggleBtn" class="pill-btn icon-only" title="Shortcuts">
+          🛠️
+        </button>
+        <button id="powerModalBtn" class="pill-btn icon-only danger" title="Power Menu">
+          ⏻
+        </button>
+      </div>
+    </header>
+
+    <!-- Upper Section: Live PC Screen Monitor -->
+    <section class="screen-section">
+      <div class="screen-wrapper" id="screenWrapper">
+        <img id="remoteScreenImg" class="screen-display" alt="PC Screen">
+        <video id="remoteVideo" class="screen-display hidden" autoplay playsinline muted></video>
+        
+        <!-- Live Windows Mouse Pointer Arrow -->
+        <div id="virtualCursor" class="virtual-cursor">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 3L10.07 20.97L12.58 13.58L19.97 11.07L3 3Z" fill="#000000" stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        
+        <!-- Connecting Overlay -->
+        <div id="connectingOverlay" class="connecting-overlay">
+          <div class="spinner" id="connectingSpinner"></div>
+          <h3 id="connectingStatus">Connecting to PC...</h3>
+          <p id="connectingSubtext">Establishing secure WebRTC screen stream</p>
+          
+          <div id="pinEntryBox" class="pin-entry-box hidden">
+            <p class="pin-hint">Enter your PC pairing PIN to authorize this browser:</p>
+            <div class="pin-input-row">
+              <input type="password" id="pinInput" class="pin-input" inputmode="numeric" maxlength="6" placeholder="PIN (Default 1234)">
+              <button id="btnSubmitPin" class="pin-submit-btn">Pair</button>
+            </div>
+            <small id="pinError" class="pin-error hidden"></small>
+          </div>
+        </div>
+
+        <!-- Revoked Overlay -->
+        <div id="revokedOverlay" class="revoked-overlay hidden">
+          <div class="revoked-icon">🚫</div>
+          <h3>Access Revoked</h3>
+          <p>This phone was disconnected by the PC host.</p>
+          <small>Scan the PC screen QR code again to reconnect.</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Shortcuts Bar (Expandable) -->
+    <div id="shortcutsBar" class="shortcuts-bar hidden">
+      <button class="key-btn" data-hotkey="WIN">⊞ Win</button>
+      <button class="key-btn" data-hotkey="ALT+TAB">Alt+Tab</button>
+      <button class="key-btn" data-hotkey="CTRL+C">Ctrl+C</button>
+      <button class="key-btn" data-hotkey="CTRL+V">Ctrl+V</button>
+      <button class="key-btn" data-hotkey="CTRL+Z">Ctrl+Z</button>
+      <button class="key-btn" data-hotkey="ESC">Esc</button>
+      <button class="key-btn" id="btnQuickSpace">␣ Space</button>
+      <button class="key-btn" data-key="13">⏎ Enter</button>
+      <button class="key-btn" data-key="8">⌫ Back</button>
+    </div>
+
+    <!-- Lower Section: Dedicated Virtual Trackpad -->
+    <section class="trackpad-section">
+      <div id="touchSurface" class="trackpad-surface">
+        <div class="trackpad-guide">
+          <span class="guide-icon">🖱️</span>
+          <span class="guide-title">TRACKPAD</span>
+          <small>Swipe to move • Tap to click • 2 fingers to scroll</small>
+        </div>
+        <div id="touchFeedback" class="touch-feedback"></div>
+      </div>
+    </section>
+
+    <!-- Bottom Mouse Controls -->
+    <footer class="mouse-bar">
+      <button id="btnLeftClick" class="mouse-btn primary">
+        <span>LEFT CLICK</span>
+      </button>
+      <button id="btnScrollToggle" class="mouse-btn secondary" title="Scroll Mode">
+        <span>⇅ SCROLL</span>
+      </button>
+      <button id="btnRightClick" class="mouse-btn primary">
+        <span>RIGHT CLICK</span>
+      </button>
+    </footer>
+
+    <!-- Hidden Native Mobile Keyboard Input -->
+    <div class="hidden-input-box">
+      <input type="text" id="keyboardInput" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Type here...">
+    </div>
+
+    <!-- Power Dialog Modal -->
+    <div id="powerModal" class="modal-backdrop hidden">
+      <div class="modal-card">
+        <div class="modal-header">
+          <h3>Windows Power Controls</h3>
+          <button id="closePowerModalBtn" class="close-btn">&times;</button>
+        </div>
+        <p class="modal-desc">Execute system actions remotely on your PC:</p>
+        <div class="power-options">
+          <button class="power-action-btn" data-action="lock">
+            <span class="icon">🔒</span>
+            <div class="action-meta">
+              <strong>Lock Workstation</strong>
+              <small>Secures Windows without closing apps</small>
+            </div>
+          </button>
+          <button class="power-action-btn" data-action="sleep">
+            <span class="icon">🌙</span>
+            <div class="action-meta">
+              <strong>Sleep PC</strong>
+              <small>Low-power standby</small>
+            </div>
+          </button>
+          <button class="power-action-btn warn" data-action="restart">
+            <span class="icon">🔄</span>
+            <div class="action-meta">
+              <strong>Restart PC</strong>
+              <small>Reboots Windows; PocketDesk auto-reconnects</small>
+            </div>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
