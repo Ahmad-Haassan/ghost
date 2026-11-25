@@ -1,6 +1,6 @@
 <div align="center">
 
-# 👻 GHOST Remote — Open-Source Mobile-to-PC Remote Desktop
+# GHOST Remote — Mobile-to-PC Remote Desktop
 ### *Zero-Budget QR-Paired Remote Control, 60 FPS WebRTC Desktop Streaming & Windows Hardware Input Injection*
 
 [![Electron](https://img.shields.io/badge/Electron-33.2-47848F?style=for-the-badge&logo=electron&logoColor=white)](https://www.electronjs.org/)
@@ -12,7 +12,7 @@
 <br />
 
 <p align="center">
-  <b>GHOST Remote</b> is an open-source, private alternative to commercial remote desktop software like TeamViewer and AnyDesk. Featuring instant one-scan QR mobile pairing, direct LAN / Cloudflare tunneling, real-time 60 FPS WebRTC screen sharing, and native C# Win32 hardware input simulation, GHOST turns any smartphone browser into a wireless trackpad, keyboard, and control monitor with zero subscription fees.
+  <b>GHOST Remote</b> is an open-source alternative to commercial remote desktop tools like TeamViewer and AnyDesk. Built with instant one-scan QR pairing, direct LAN / Cloudflare tunneling, real-time 60 FPS WebRTC screen sharing and native C# Win32 hardware input simulation, GHOST lets you use any phone browser as a wireless trackpad, keyboard and display monitor without subscription costs.
 </p>
 
 </div>
@@ -25,20 +25,20 @@
 
 ---
 
-## 📖 Overview
+## Overview
 
-GHOST Remote establishes a direct peer-to-peer or tunneled connection between your desktop and a smartphone. Pairing is handled through a one-time dynamic QR code containing unique session credentials. Once connected, your phone functions as a wireless trackpad, keyboard, and display monitor with ultra-low latency.
+GHOST Remote establishes a direct peer-to-peer or tunneled connection between your desktop and a smartphone. Pairing is handled through a one-time dynamic QR code containing unique session credentials. Once connected, your phone functions as a wireless trackpad, keyboard and display monitor with low latency.
 
 ---
 
 ## Visual Walkthrough
 
-| 📱 Mobile QR Pairing | 👥 Authorized Device Manager |
+| Mobile QR Pairing | Authorized Device Manager |
 | :---: | :---: |
 | <img src="./docs/screenshots/01_mobile_pairing.png" width="440" /> | <img src="./docs/screenshots/02_paired_devices.png" width="440" /> |
 | **Instant one-scan connection** | **Monitor and revoke active devices** |
 
-| 📖 Step-by-Step Instructions | ⚙️ Startup & Access Settings |
+| Step-by-Step Instructions | Startup & Access Settings |
 | :---: | :---: |
 | <img src="./docs/screenshots/03_how_to_use.png" width="440" /> | <img src="./docs/screenshots/04_system_settings.png" width="440" /> |
 | **Clear guide for mobile web pairing** | **Auto-start persistence and input permissions** |
@@ -49,7 +49,7 @@ GHOST Remote establishes a direct peer-to-peer or tunneled connection between yo
 
 - **Instant QR Pairing**: Scan a generated QR code from your mobile browser without installing a native phone app.
 - **Real-Time Display Streaming**: Captures the Windows desktop and streams video via WebRTC at high frame rates.
-- **Hardware-Level Input Injection**: Uses a lightweight C# helper to simulate smooth mouse movements, clicks, and keystrokes directly in Windows.
+- **Hardware-Level Input Injection**: Uses a lightweight C# helper to simulate smooth mouse movements, clicks and keystrokes directly in Windows.
 - **Cloudflare Quick Tunnel Integration**: Enables access across different networks without manual router port-forwarding.
 - **Minimal Footprint**: Built with Electron and vanilla web technologies for fast loading and low CPU overhead.
 - **Device Management**: View and revoke connected mobile clients from the desktop control panel.
@@ -77,7 +77,7 @@ GHOST Remote establishes a direct peer-to-peer or tunneled connection between yo
 ```text
 ghost/
 ├── assets/                  # Icons and visual branding assets
-├── desktop/                 # Electron dashboard HTML, CSS, and renderer scripts
+├── desktop/                 # Electron dashboard HTML, CSS and renderer scripts
 │   ├── index.html           # Main host user interface
 │   ├── renderer.js          # Desktop UI logic and device pairing state
 │   └── style.css            # Dark-themed control panel styling
