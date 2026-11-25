@@ -1,6 +1,21 @@
-# GHOST Remote
+<div align="center">
 
-An open-source desktop control application that allows users to monitor and interact with their Windows computer from a mobile device using WebRTC screen streaming and real-time input injection.
+# 👻 GHOST Remote — Open-Source Mobile-to-PC Remote Desktop
+### *Zero-Budget QR-Paired Remote Control, 60 FPS WebRTC Desktop Streaming & Windows Hardware Input Injection*
+
+[![Electron](https://img.shields.io/badge/Electron-33.2-47848F?style=for-the-badge&logo=electron&logoColor=white)](https://www.electronjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![WebRTC](https://img.shields.io/badge/WebRTC-60_FPS_Stream-333333?style=for-the-badge&logo=webrtc&logoColor=white)](https://webrtc.org/)
+[![C#](https://img.shields.io/badge/C%23-Win32_SendInput-239120?style=for-the-badge&logo=csharp&logoColor=white)](./input_injector.cs)
+[![License: MIT](https://img.shields.io/badge/License-MIT-00f5d4.svg?style=for-the-badge)](./package.json)
+
+<br />
+
+<p align="center">
+  <b>GHOST Remote</b> is an open-source, private alternative to commercial remote desktop software like TeamViewer and AnyDesk. Featuring instant one-scan QR mobile pairing, direct LAN / Cloudflare tunneling, real-time 60 FPS WebRTC screen sharing, and native C# Win32 hardware input simulation, GHOST turns any smartphone browser into a wireless trackpad, keyboard, and control monitor with zero subscription fees.
+</p>
+
+</div>
 
 <br />
 
@@ -10,7 +25,7 @@ An open-source desktop control application that allows users to monitor and inte
 
 ---
 
-## Overview
+## 📖 Overview
 
 GHOST Remote establishes a direct peer-to-peer or tunneled connection between your desktop and a smartphone. Pairing is handled through a one-time dynamic QR code containing unique session credentials. Once connected, your phone functions as a wireless trackpad, keyboard, and display monitor with ultra-low latency.
 
