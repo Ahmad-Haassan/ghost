@@ -2,11 +2,31 @@
 
 An open-source desktop control application that allows users to monitor and interact with their Windows computer from a mobile device using WebRTC screen streaming and real-time input injection.
 
+<br />
+
+<p align="center">
+  <img src="./docs/screenshots/01_mobile_pairing.png" alt="GHOST Remote Control Center" width="850" />
+</p>
+
 ---
 
 ## Overview
 
 GHOST Remote establishes a direct peer-to-peer or tunneled connection between your desktop and a smartphone. Pairing is handled through a one-time dynamic QR code containing unique session credentials. Once connected, your phone functions as a wireless trackpad, keyboard, and display monitor with ultra-low latency.
+
+---
+
+## Visual Walkthrough
+
+| 📱 Mobile QR Pairing | 👥 Authorized Device Manager |
+| :---: | :---: |
+| <img src="./docs/screenshots/01_mobile_pairing.png" width="440" /> | <img src="./docs/screenshots/02_paired_devices.png" width="440" /> |
+| **Instant one-scan connection** | **Monitor and revoke active devices** |
+
+| 📖 Step-by-Step Instructions | ⚙️ Startup & Access Settings |
+| :---: | :---: |
+| <img src="./docs/screenshots/03_how_to_use.png" width="440" /> | <img src="./docs/screenshots/04_system_settings.png" width="440" /> |
+| **Clear guide for mobile web pairing** | **Auto-start persistence and input permissions** |
 
 ---
 
@@ -46,6 +66,8 @@ ghost/
 │   ├── index.html           # Main host user interface
 │   ├── renderer.js          # Desktop UI logic and device pairing state
 │   └── style.css            # Dark-themed control panel styling
+├── docs/                    # Architectural diagrams and showcase screenshots
+│   └── screenshots/         # High-resolution application previews
 ├── public/                  # Mobile progressive web app
 │   └── mobile/              # Client web app served to connected phones
 ├── inputManager.js          # Bridges WebSocket input commands to the injector
